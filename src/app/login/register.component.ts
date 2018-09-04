@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
+
+import Swal from 'sweetalert2'
+
+declare function init_plugins();
 
 @Component({
   selector: 'app-register',
@@ -7,9 +12,53 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
+  forma: FormGroup;
+
   constructor() { }
 
-  ngOnInit() {
+  sonIguales(campo1: string, campo2: string): ValidatorFn {
+    return (group: FormGroup): {[key: string]: boolean} | null => {
+      let valor1 = group.controls[campo1].value;
+      let valor2 = group.controls[campo2].value;
+
+      if (valor1 === valor2) {
+        return null
+      }
+      return { sonIguales: true }
+    }
   }
 
+  ngOnInit() {
+    init_plugins();
+
+    this.forma = new FormGroup({
+      nombre: new FormControl(null, Validators.required),
+      correo: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, Validators.required),
+      password2: new FormControl(null, Validators.required),
+      condiciones: new FormControl(false),
+    }, { validators: this.sonIguales('password', 'password2') });
+
+    this.forma.setValue({
+      nombre: 'Test',
+      correo: 'test@test.com',
+      password: '123456',
+      password2: '123456',
+      condiciones: true,
+    });
+  }
+
+  registrarUsuario() {
+
+    if (this.forma.invalid) {
+      return;
+    }
+
+    if (!this.forma.value.condiciones) {
+      Swal('Importante', 'Debe aceptar las condiciones', 'warning');
+      return;
+    }
+    console.log(`Estado del formulario: ${this.forma.valid}`);
+    console.log(this.forma.value);
+  }
 }

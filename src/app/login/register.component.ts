@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
+import { UsuarioService } from '../services/service.index';
+import { Usuario } from '../models/usuario.model';
 
-import Swal from 'sweetalert2'
+
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 declare function init_plugins();
 
@@ -14,18 +18,18 @@ export class RegisterComponent implements OnInit {
 
   forma: FormGroup;
 
-  constructor() { }
+  constructor(private _usuarioService: UsuarioService, private router: Router) { }
 
   sonIguales(campo1: string, campo2: string): ValidatorFn {
     return (group: FormGroup): {[key: string]: boolean} | null => {
-      let valor1 = group.controls[campo1].value;
-      let valor2 = group.controls[campo2].value;
+      const valor1 = group.controls[campo1].value;
+      const valor2 = group.controls[campo2].value;
 
       if (valor1 === valor2) {
-        return null
+        return null;
       }
-      return { sonIguales: true }
-    }
+      return { sonIguales: true };
+    };
   }
 
   ngOnInit() {
@@ -58,7 +62,15 @@ export class RegisterComponent implements OnInit {
       Swal('Importante', 'Debe aceptar las condiciones', 'warning');
       return;
     }
-    console.log(`Estado del formulario: ${this.forma.valid}`);
-    console.log(this.forma.value);
+
+    const usuario: Usuario = {
+      nombre: this.forma.value.nombre,
+      email: this.forma.value.correo,
+      password: this.forma.value.password,
+    };
+
+    this._usuarioService.crearUsuario(usuario)
+      .subscribe(respuesta => console.log(respuesta));
+      // .subscribe(response => this.router.navigate(['/login']));
   }
 }

@@ -11,6 +11,9 @@ import swal from 'sweetalert2';
 })
 export class UsuarioService {
 
+  usuario: Usuario;
+  token: string;
+
   constructor(private http: HttpClient) {
     console.log('Servicio de usuario listo');
   }
@@ -26,6 +29,27 @@ export class UsuarioService {
       );
   }
 
+  guardarStorage(id: string, token: string, usuario: Usuario) {
+    localStorage.setItem('id', id);
+    localStorage.setItem('token', token);
+    localStorage.setItem('usuario', JSON.stringify(usuario));
+
+    this.usuario = usuario;
+    this.token = token;
+  }
+
+  loginGoogle(token: string) {
+    const url = `${URL_SERVICIOS}/login/google`;
+    return this.http.post(url, { token })
+      .pipe(
+        map((resp: any) => {
+          this.guardarStorage(resp.id, resp.token, resp.usuario);
+          console.log(resp);
+          return true;
+        })
+      );
+  }
+
   login(usuario: Usuario, recordar: boolean = false) {
     if (recordar) {
       localStorage.setItem('email', usuario.email);
@@ -35,10 +59,8 @@ export class UsuarioService {
     const url = `${URL_SERVICIOS}/login`;
     return this.http.post(url, usuario)
       .pipe(
-        map((respuesta: any) => {
-          localStorage.setItem('id', respuesta.id);
-          localStorage.setItem('token', respuesta.token);
-          localStorage.setItem('usuario', JSON.stringify(respuesta.usuario));
+        map((resp: any) => {
+          this.guardarStorage(resp.id, resp.token, resp.usuario);
           return true;
         })
       );

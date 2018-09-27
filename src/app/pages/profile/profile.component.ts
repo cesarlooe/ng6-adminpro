@@ -47,11 +47,8 @@ export class ProfileComponent implements OnInit {
   }
 
   cambiarImagen() {
-    console.log('Hola');
     this._usuarioService.cambiarImagen(this.imagenSubir, this.usuario._id)
-      .subscribe((resp) => {
-        console.log(resp);
-      });
+      .subscribe();
   }
 
 }

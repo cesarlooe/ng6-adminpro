@@ -22,7 +22,6 @@ export class UsuarioService {
     private _subirArchivoSerive: SubirArchivoService
     ) {
     this.cargarStorage();
-    console.log('Servicio de usuario listo');
   }
 
   cargarStorage() {
@@ -88,7 +87,6 @@ export class UsuarioService {
       .pipe(
         map((resp: any) => {
           this.guardarStorage(resp.id, resp.token, resp.usuario);
-          console.log(resp);
           return true;
         })
       );
@@ -118,6 +116,32 @@ export class UsuarioService {
           this.usuario.img = usuarioDB.img;
           swal('Imagen actualizada');
           this.guardarStorage(id, this.token, this.usuario);
+        })
+      );
+  }
+
+  cargarUsuarios(desde: number = 0) {
+    const url = `${URL_SERVICIOS}/usuario?desde=${desde}`;
+    return this.http.get(url);
+  }
+
+  buscarUsuarios(termino: string) {
+    const url = `${URL_SERVICIOS}/busqueda/coleccion/usuarios/${termino}`;
+    return this.http.get(url)
+      .pipe(
+        map((resp: any) => resp.usuarios)
+      );
+  }
+
+  borrarUsuario(id: string) {
+    let headers: HttpHeaders = new HttpHeaders;
+    headers = headers.append('Authorization', `Bearer ${this.token}`);
+    const url = `${URL_SERVICIOS}/usuario/${id}`;
+    return this.http.delete(url, {headers})
+      .pipe(
+        map((resp) => {
+          swal('Usuario borrado', 'El usuario ha sido eliminado correctamente', 'success');
+          return true;
         })
       );
   }

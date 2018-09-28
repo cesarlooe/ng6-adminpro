@@ -39,14 +39,19 @@
               <td class="w70"><img [src]="usuario.img | imagen" class="img-50 img-circle"></td>
               <td>{{ usuario.email }}</td>
               <td>{{ usuario.nombre }}</td>
-              <td>{{ usuario.role }}</td>
+              <td>
+                <select [(ngModel)]="usuario.role" class="form-control">
+                  <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+                  <option value="USER_ROLE">USER_ROLE</option>
+                </select>
+              </td>
               <td>
                 <label *ngIf="usuario.google" class="label label-danger">Google</label>
                 <label *ngIf="!usuario.google" class="label label-info">Normal</label>
               </td>
               <td>
-                <button class="btn btn-primary btn-space">
-                  <i class="fa fa-save"></i> 
+                <button (click)="guardarUsuario(usuario)" class="btn btn-primary btn-space">
+                  <i class="fa fa-save"></i>
                 </button>
                 <button (click)="borrarUsuario(usuario)" class="btn btn-danger">
                   <i class="fa fa-trash-o"></i>

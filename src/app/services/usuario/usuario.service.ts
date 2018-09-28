@@ -52,8 +52,10 @@ export class UsuarioService {
     return this.http.put(url, usuario, { headers })
       .pipe(
         map((resp: any) => {
-          const usuarioDB: Usuario = resp.usuario;
-          this.guardarStorage(usuarioDB._id, this.token, usuarioDB);
+          if (usuario._id === this.usuario._id) {
+            const usuarioDB: Usuario = resp.usuario;
+            this.guardarStorage(usuarioDB._id, this.token, usuarioDB);
+          }
           swal('Usuario actualizado', usuario.nombre, 'success');
           return true;
         })

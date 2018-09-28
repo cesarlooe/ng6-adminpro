@@ -18,6 +18,7 @@ import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.co
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
     AccountSettingsComponent,
     ProfileComponent,
     UsuariosComponent,
+    ModalUploadComponent,
   ],
   exports: [
     DashboardComponent,

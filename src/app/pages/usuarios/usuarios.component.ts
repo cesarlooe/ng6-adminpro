@@ -60,7 +60,7 @@ export class UsuariosComponent implements OnInit {
       });
   }
 
-  borrarUsuario(usuario) {
+  borrarUsuario(usuario: Usuario) {
     if (usuario._id === this._usuarioService.usuario._id) {
       swal('No se puede borrar el usuario', 'No puede borrarse a si mismo', 'error');
       return;
@@ -82,6 +82,11 @@ export class UsuariosComponent implements OnInit {
           });
       }
     });
+  }
+
+  guardarUsuario(usuario: Usuario) {
+    this._usuarioService.actualizarUsuario(usuario)
+      .subscribe();
   }
 
 }

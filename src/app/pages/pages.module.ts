@@ -19,6 +19,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
+import { HospitalesComponent } from './hospitales/hospitales.component';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { ModalUploadComponent } from '../components/modal-upload/modal-upload.co
     ProfileComponent,
     UsuariosComponent,
     ModalUploadComponent,
+    HospitalesComponent,
   ],
   exports: [
     DashboardComponent,

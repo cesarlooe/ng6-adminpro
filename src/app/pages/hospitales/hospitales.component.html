@@ -1,0 +1,57 @@
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input #input (keyup)="buscarHospital(input.value)" type="text" class="form-control">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="cargando">
+  <div class="col-12">
+    <div class="alert alert-warning text-center">
+      <strong>Cargando...</strong>
+      <br>
+      <i class="fa fa-refresh fa-spin fa-2x"></i>
+      <br>
+      <span>Espere por favor</span>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title">
+          Hospitales registrados (<small>{{ totalRegistros }}</small>)
+          <button (click)="crearHospital()" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"></i> Crear hospital</button>
+        </div>
+        <table class="table table-hover">
+          <tr>
+            <td>Foto</td>
+            <td>Hospital</td>
+            <td></td>
+          </tr>
+          <tbody>
+            <tr *ngFor="let hospital of hospitales">
+              <td class="w70"><img (click)="cargarUpload(hospital._id)" [src]="hospital.img | imagen" class="img-50 img-circle pointer" data-toggle="modal" data-target="#upload-modal"></td>
+              <td><input [(ngModel)]="hospital.nombre" name="nombre" type="text" class="form-control"></td>
+              <td>
+                <button (click)="guardarHospital(hospital)" class="btn btn-primary btn-space">
+                  <i class="fa fa-save"></i>
+                </button>
+                <button (click)="borrarHospital(hospital)" class="btn btn-danger">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button (click)="cambiarDesde(-5)" class="btn btn-secondary btn-space">Anteriores</button>
+        <button (click)="cambiarDesde(5)" class="btn btn-secondary">Siguientes</button>
+      </div>
+    </div>
+  </div>
+</div>

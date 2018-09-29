@@ -9,6 +9,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { LoginGuardGuard } from '../services/service.index';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { HospitalesComponent } from './hospitales/hospitales.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'graficas1', component: Graficas1Component, data: { title: 'Gráficas'} },
       // Mantenimientos
       { path: 'usuarios', component: UsuariosComponent, data: { title: 'Mantenimiento de usuarios'} },
+      { path: 'hospitales', component: HospitalesComponent, data: { title: 'Mantenimiento de hospitales'} },
       { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
     ]
   }

@@ -47,7 +47,6 @@ export class HospitalesComponent implements OnInit {
         this.hospitales = resp.hospitales;
         this.totalRegistros = resp.total;
         this.cargando = false;
-        console.log(this.hospitales);
       });
   }
 

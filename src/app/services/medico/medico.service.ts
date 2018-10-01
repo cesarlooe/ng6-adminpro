@@ -53,6 +53,17 @@ export class MedicoService {
       );
   }
 
+  actualizarMedico(medico: Medico) {
+    const url = `${URL_SERVICIOS}/medico/${medico._id}`;
+    return this.http.put(url, medico, { headers: this.headers })
+      .pipe(
+        map((resp: any) => {
+          swal('Médico actualizado', medico.nombre, 'success');
+          return resp.medico;
+        })
+      );
+  }
+
   cargarMedico(id: string) {
     const url = `${URL_SERVICIOS}/medico/${id}`;
     return this.http.get(url)

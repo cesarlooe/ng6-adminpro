@@ -23,7 +23,6 @@ export class MedicosComponent implements OnInit {
 
   cambiarDesde(valor) {
     const desde = this.desde + valor;
-    console.log(desde);
 
     if (desde >= this.totalRegistros) {
       return;

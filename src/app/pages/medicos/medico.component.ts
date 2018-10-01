@@ -50,11 +50,16 @@ export class MedicoComponent implements OnInit {
       return;
     }
 
-    this._medicoService.guardarMedico(this.medico)
-      .subscribe((medico) => {
-        this.medico._id = medico._id;
-        this.router.navigate(['/medico', medico._id]);
-      });
+    if (!this.medico._id) {
+      this._medicoService.guardarMedico(this.medico)
+        .subscribe((medico) => {
+          this.medico._id = medico._id;
+          this.router.navigate(['/medico', medico._id]);
+        });
+    } else {
+      this._medicoService.actualizarMedico(this.medico)
+        .subscribe();
+    }
   }
 
   cambioHospital(id: string) {

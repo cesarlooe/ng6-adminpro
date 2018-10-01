@@ -141,7 +141,7 @@ export class UsuarioService {
     const url = `${URL_SERVICIOS}/usuario/${id}`;
     return this.http.delete(url, {headers})
       .pipe(
-        map((resp) => {
+        map(() => {
           swal('Usuario borrado', 'El usuario ha sido eliminado correctamente', 'success');
           return true;
         })

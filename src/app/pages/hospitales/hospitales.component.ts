@@ -47,6 +47,7 @@ export class HospitalesComponent implements OnInit {
         this.hospitales = resp.hospitales;
         this.totalRegistros = resp.total;
         this.cargando = false;
+        console.log(this.hospitales);
       });
   }
 
@@ -88,7 +89,7 @@ export class HospitalesComponent implements OnInit {
   }
 
   cargarUpload(id: string) {
-    this._modalUploadService.cargarValores('hospital', id);
+    this._modalUploadService.cargarValores('hospitales', id);
   }
 
   guardarHospital(hospital: Hospital) {

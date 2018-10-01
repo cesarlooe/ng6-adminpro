@@ -10,6 +10,8 @@ import { LoginGuardGuard } from '../services/service.index';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
+import { MedicosComponent } from './medicos/medicos.component';
+import { MedicoComponent } from './medicos/medico.component';
 
 const routes: Routes = [
   {
@@ -23,8 +25,10 @@ const routes: Routes = [
       { path: 'progress', component: ProgressComponent, data: { title: 'Progress'} },
       { path: 'graficas1', component: Graficas1Component, data: { title: 'Gráficas'} },
       // Mantenimientos
-      { path: 'usuarios', component: UsuariosComponent, data: { title: 'Mantenimiento de usuarios'} },
-      { path: 'hospitales', component: HospitalesComponent, data: { title: 'Mantenimiento de hospitales'} },
+      { path: 'usuarios', component: UsuariosComponent, data: { title: 'Mantenimiento de Usuarios'} },
+      { path: 'hospitales', component: HospitalesComponent, data: { title: 'Mantenimiento de Hospitales'} },
+      { path: 'medicos', component: MedicosComponent, data: { title: 'Mantenimiento de Médicos'} },
+      { path: 'medico/:id', component: MedicoComponent, data: { title: 'Actualizar Médico'} },
       { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
     ]
   }

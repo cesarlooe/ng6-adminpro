@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UsuarioService } from '../usuario/usuario.service';
 import { map } from 'rxjs/operators';
 import { Hospital } from '../../models/hospital.model';
+import swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class HospitalService {
     this.headers = this.headers.append('Authorization', `Bearer ${token}`);
   }
 
-  cargarHospitales(desde: number) {
+  cargarHospitales(desde: number = 0) {
     const url = `${URL_SERVICIOS}/hospital?desde=${desde}`;
     return this.http.get(url);
   }
@@ -29,7 +30,13 @@ export class HospitalService {
 
   borrarHospital(id: string) {
     const url = `${URL_SERVICIOS}/hospital/${id}`;
-    return this.http.delete(url, { headers: this.headers });
+    return this.http.delete(url, { headers: this.headers })
+      .pipe(
+        map(() => {
+          swal('Hospital borrado', 'El hospital ha sido eliminado correctamente', 'success');
+          return true;
+        })
+      );
   }
 
   crearHospital(nombre: string) {

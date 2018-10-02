@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
+import { throwError } from 'rxjs';
 
 
 @Injectable({
@@ -112,6 +113,10 @@ export class UsuarioService {
         map((resp: any) => {
           this.guardarStorage(resp.id, resp.token, resp.usuario, resp.menu);
           return true;
+        }),
+        catchError((err) => {
+          swal('Error en el login', err.error.mensaje, 'error');
+          return throwError(err);
         })
       );
   }

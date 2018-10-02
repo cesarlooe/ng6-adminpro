@@ -5,7 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { Graficas1Component } from './graficas1/graficas1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { AdminGuard } from '../services/service.index';
+import { AdminGuard, VerificaTokenGuard } from '../services/service.index';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
@@ -14,7 +14,12 @@ import { MedicoComponent } from './medicos/medico.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [ VerificaTokenGuard ],
+    data: { title: 'Dashboard' }
+  },
   { path: 'account-settings', component: AccountSettingsComponent, data: { title: 'Account Settings'} },
   { path: 'perfil', component: ProfileComponent, data: { title: 'Perfil de usuario'} },
   { path: 'busqueda/:termino', component: BusquedaComponent, data: { title: 'Buscador'} },

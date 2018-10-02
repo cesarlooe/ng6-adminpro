@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   usuario: Usuario;
 
   constructor(
-    private _usuarioService: UsuarioService,
+    public _usuarioService: UsuarioService,
     private router: Router,
     ) { }
 
